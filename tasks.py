@@ -5,120 +5,106 @@ from crewai import Task
 def create_business_analysis_task(agent, business_description):
     return Task(
         description=f"""
-        Analyze the following business in detail:
+        Analyze this business:
 
-        BUSINESS DESCRIPTION:
         {business_description}
 
         Identify:
-        1. The business model
-        2. Target customers
-        3. Main products or services
-        4. Current business challenges
-        5. Strengths and weaknesses
-        6. Opportunities for improvement
-        7. Key business risks
+        - Business model and main offerings
+        - Target customers
+        - Strengths and weaknesses
+        - Main challenges and risks
+        - Best opportunities
 
-        Provide a clear, professional and practical business analysis.
+        Be specific, practical, and concise.
+        Avoid repeating the business description.
         """,
-        expected_output="A detailed business analysis covering the business model, customers, strengths, weaknesses, challenges, opportunities, and risks.",
+        expected_output="A concise business analysis with key findings and recommendations, maximum 250 words.",
         agent=agent
     )
 
 
 def create_market_research_task(agent, business_description):
     return Task(
-        description=f"""
-        Conduct market research based on this business:
+        description="""
+        Using the business analysis provided in context, analyze:
+        - Target market and ideal customers
+        - Customer needs and buying behavior
+        - Market trends
+        - Competitors and competitive advantages
+        - Market opportunities
 
-        BUSINESS DESCRIPTION:
-        {business_description}
+        Do not invent statistics or unsupported facts.
+        State assumptions clearly.
 
-        Analyze:
-        1. Target market
-        2. Ideal customer profile
-        3. Customer needs
-        4. Market trends
-        5. Competitor landscape
-        6. Competitive advantages
-        7. Market opportunities
-
-        Do not invent specific statistics. Clearly identify assumptions.
+        Focus on useful findings rather than repeating the business analysis.
         """,
-        expected_output="A professional market research report covering target customers, trends, competitors, market opportunities, and assumptions.",
+        expected_output="Concise market research findings and opportunities, maximum 250 words.",
         agent=agent
     )
 
 
 def create_marketing_strategy_task(agent, business_description):
     return Task(
-        description=f"""
-        Create a marketing strategy for this business:
-
-        BUSINESS DESCRIPTION:
-        {business_description}
+        description="""
+        Using the business analysis and market research provided in context,
+        create a practical marketing strategy.
 
         Include:
-        1. Brand positioning
-        2. Marketing objectives
-        3. Target audience
-        4. Social media strategy
-        5. Content marketing plan
-        6. Customer acquisition strategy
-        7. Marketing campaign ideas
-        8. Customer retention strategy
+        - Brand positioning
+        - Ideal customer
+        - Affordable marketing channels
+        - Social media and content ideas
+        - Customer acquisition
+        - Customer retention
+        - Three practical marketing actions
 
-        Focus on realistic and affordable marketing actions.
+        Prioritize affordable, realistic ideas.
+        Avoid repeating previous task outputs.
         """,
-        expected_output="A practical marketing strategy with branding, social media, content, customer acquisition, campaigns, and retention recommendations.",
+        expected_output="A practical marketing strategy with prioritized recommendations, maximum 250 words.",
         agent=agent
     )
 
 
 def create_financial_analysis_task(agent, business_description):
     return Task(
-        description=f"""
-        Analyze the financial aspects of this business:
+        description="""
+        Using the business analysis provided in context, evaluate:
 
-        BUSINESS DESCRIPTION:
-        {business_description}
+        - Revenue opportunities
+        - Main expenses
+        - Pricing approach
+        - Profitability
+        - Budget priorities
+        - Financial risks
+        - Cost-saving ideas
 
-        Evaluate:
-        1. Potential revenue streams
-        2. Main operating costs
-        3. Pricing strategy
-        4. Profitability opportunities
-        5. Budget considerations
-        6. Financial risks
-        7. Cost-saving recommendations
-
-        If financial data is missing, clearly state your assumptions.
-        Do not invent actual financial figures.
+        If financial information is unavailable, provide reasonable estimates
+        only when clearly labeled as assumptions.
+        Do not present assumptions as verified facts.
         """,
-        expected_output="A financial business assessment covering revenue streams, costs, pricing, profitability, budget, risks, and financial recommendations.",
+        expected_output="A concise financial assessment and practical recommendations, maximum 250 words.",
         agent=agent
     )
 
 
 def create_growth_strategy_task(agent, business_description):
     return Task(
-        description=f"""
-        Develop a growth strategy for this business:
-
-        BUSINESS DESCRIPTION:
-        {business_description}
+        description="""
+        Use all previous consultant findings to create a business growth plan.
 
         Include:
-        1. Short-term growth opportunities
-        2. Long-term growth opportunities
-        3. Business expansion ideas
-        4. Operational improvements
-        5. Customer retention
-        6. Scaling strategy
-        7. A prioritized action plan
+        - Immediate priorities
+        - Short-term growth opportunities
+        - Long-term expansion ideas
+        - Operational improvements
+        - Customer retention
+        - Three to five prioritized action steps
 
-        Make your recommendations practical and achievable.
+        Focus on realistic actions and avoid repeating previous reports.
         """,
-        expected_output="A business growth plan with prioritized short-term and long-term strategies, operational improvements, expansion opportunities, and action steps.",
+        expected_output="A concise, prioritized business growth plan, maximum 250 words.",
         agent=agent
     )
+
