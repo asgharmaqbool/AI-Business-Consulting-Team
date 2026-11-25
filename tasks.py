@@ -5,106 +5,107 @@ from crewai import Task
 def create_business_analysis_task(agent, business_description):
     return Task(
         description=f"""
-        Analyze this business:
+        Understand the user's question:
 
         {business_description}
 
-        Identify:
-        - Business model and main offerings
-        - Target customers
-        - Strengths and weaknesses
-        - Main challenges and risks
-        - Best opportunities
+        Answer according to what the user actually asks.
 
-        Be specific, practical, and concise.
-        Avoid repeating the business description.
+        RULES:
+        - If the question is simple, answer in ONE short sentence.
+        - If the user asks for suggestions, give only relevant suggestions.
+        - Do not create a business report unless requested.
+        - Do not add unnecessary headings or explanations.
+        - Keep the answer practical, clear, and easy to understand.
+        - If the user asks for detailed analysis, provide detail accordingly.
         """,
-        expected_output="A concise business analysis with key findings and recommendations, maximum 250 words.",
+        expected_output="A direct, relevant answer. For simple questions, maximum one short sentence.",
         agent=agent
     )
 
 
 def create_market_research_task(agent, business_description):
     return Task(
-        description="""
-        Using the business analysis provided in context, analyze:
-        - Target market and ideal customers
-        - Customer needs and buying behavior
-        - Market trends
-        - Competitors and competitive advantages
-        - Market opportunities
+        description=f"""
+        User's question:
 
-        Do not invent statistics or unsupported facts.
-        State assumptions clearly.
+        {business_description}
 
-        Focus on useful findings rather than repeating the business analysis.
+        Provide market insight only if it is relevant to the question.
+
+        RULES:
+        - For simple questions, provide only one short sentence.
+        - Do not repeat the business analysis.
+        - Do not provide unnecessary market reports.
+        - Do not invent statistics or facts.
+        - Give detailed research only if the user requests it.
         """,
-        expected_output="Concise market research findings and opportunities, maximum 250 words.",
+        expected_output="One short, relevant market insight unless detailed research is requested.",
         agent=agent
     )
 
 
 def create_marketing_strategy_task(agent, business_description):
     return Task(
-        description="""
-        Using the business analysis and market research provided in context,
-        create a practical marketing strategy.
+        description=f"""
+        User's question:
 
-        Include:
-        - Brand positioning
-        - Ideal customer
-        - Affordable marketing channels
-        - Social media and content ideas
-        - Customer acquisition
-        - Customer retention
-        - Three practical marketing actions
+        {business_description}
 
-        Prioritize affordable, realistic ideas.
-        Avoid repeating previous task outputs.
+        Give marketing advice only when it is relevant.
+
+        RULES:
+        - Keep simple answers to one short sentence.
+        - Give suggestions only when requested.
+        - Avoid lengthy marketing strategies.
+        - Do not repeat previous answers.
+        - Provide a detailed strategy only when specifically requested.
         """,
-        expected_output="A practical marketing strategy with prioritized recommendations, maximum 250 words.",
+        expected_output="A short and useful marketing suggestion unless a detailed strategy is requested.",
         agent=agent
     )
 
 
 def create_financial_analysis_task(agent, business_description):
     return Task(
-        description="""
-        Using the business analysis provided in context, evaluate:
+        description=f"""
+        User's question:
 
-        - Revenue opportunities
-        - Main expenses
-        - Pricing approach
-        - Profitability
-        - Budget priorities
-        - Financial risks
-        - Cost-saving ideas
+        {business_description}
 
-        If financial information is unavailable, provide reasonable estimates
-        only when clearly labeled as assumptions.
-        Do not present assumptions as verified facts.
+        Discuss costs, budgets, or profits only when relevant.
+
+        RULES:
+        - Keep simple answers short and direct.
+        - Do not provide unnecessary financial calculations.
+        - Never invent financial facts.
+        - Clearly identify estimates when required.
+        - Give a detailed financial analysis only when requested.
         """,
-        expected_output="A concise financial assessment and practical recommendations, maximum 250 words.",
+        expected_output="A concise financial answer relevant to the user's question.",
         agent=agent
     )
 
 
 def create_growth_strategy_task(agent, business_description):
     return Task(
-        description="""
-        Use all previous consultant findings to create a business growth plan.
+        description=f"""
+        User's original question:
 
-        Include:
-        - Immediate priorities
-        - Short-term growth opportunities
-        - Long-term expansion ideas
-        - Operational improvements
-        - Customer retention
-        - Three to five prioritized action steps
+        {business_description}
 
-        Focus on realistic actions and avoid repeating previous reports.
+        Review the previous consultants' findings and prepare the FINAL answer.
+
+        IMPORTANT RULES:
+        - Follow the user's requested answer length.
+        - If the user asks a simple question, give ONLY ONE short sentence.
+        - If the user asks for suggestions, give a few relevant suggestions.
+        - If the user asks for a detailed business plan, provide a detailed plan.
+        - Do not repeat the previous consultants' reports.
+        - Do not use unnecessary headings.
+        - Be practical, clear, and friendly.
+        - Answer the actual question directly.
         """,
-        expected_output="A concise, prioritized business growth plan, maximum 250 words.",
+        expected_output="The final answer in the exact level of detail requested by the user. Simple questions must receive only one short sentence.",
         agent=agent
     )
-
