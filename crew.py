@@ -20,20 +20,14 @@ from tasks import (
 
 def create_consulting_crew(business_description):
 
-    # ------------------------------------------
-    # CREATE THE FIVE SPECIALIST AGENTS
-    # ------------------------------------------
-
+    # Create the five consultants
     business_analyst = create_business_analyst()
     market_researcher = create_market_researcher()
     marketing_strategist = create_marketing_strategist()
     financial_advisor = create_financial_advisor()
     growth_consultant = create_business_growth_consultant()
 
-    # ------------------------------------------
-    # CREATE THE FIVE SPECIALIST TASKS
-    # ------------------------------------------
-
+    # Create the five tasks
     business_analysis_task = create_business_analysis_task(
         business_analyst,
         business_description
@@ -59,27 +53,20 @@ def create_consulting_crew(business_description):
         business_description
     )
 
-    # ------------------------------------------
-    # CONNECT TASK CONTEXT
-    # ------------------------------------------
-
-    # Market research uses the business analysis
+    # Control context to reduce unnecessary token usage
     market_research_task.context = [
         business_analysis_task
     ]
 
-    # Marketing uses business analysis and market research
     marketing_task.context = [
         business_analysis_task,
         market_research_task
     ]
 
-    # Financial analysis uses the business analysis
     financial_task.context = [
         business_analysis_task
     ]
 
-    # Growth consultant receives all previous findings
     growth_task.context = [
         business_analysis_task,
         market_research_task,
@@ -87,10 +74,7 @@ def create_consulting_crew(business_description):
         financial_task
     ]
 
-    # ------------------------------------------
-    # ASSEMBLE THE CONSULTING TEAM
-    # ------------------------------------------
-
+    # Assemble the consulting team
     consulting_crew = Crew(
         agents=[
             business_analyst,
