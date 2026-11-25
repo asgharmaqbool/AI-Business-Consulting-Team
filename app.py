@@ -32,6 +32,7 @@ def configure_api_key():
 
 st.markdown("""
 <style>
+
 .stApp {
     background-color: #f4f7fb;
 }
@@ -73,14 +74,9 @@ div.stButton > button:hover {
     color: white;
 }
 
-.report-box {
-    background-color: white;
-    border-radius: 15px;
-    padding: 22px;
-    border: 1px solid #dfe7f0;
-}
 </style>
 """, unsafe_allow_html=True)
+
 
 # --------------------------------------------------
 # HEADER
@@ -98,6 +94,7 @@ st.markdown(
 )
 
 st.divider()
+
 
 # --------------------------------------------------
 # TEAM INTRODUCTION
@@ -132,6 +129,7 @@ for col, info in zip(columns, agents_info):
 
 st.divider()
 
+
 # --------------------------------------------------
 # BUSINESS INPUT
 # --------------------------------------------------
@@ -159,6 +157,7 @@ analyze_button = st.button(
     use_container_width=True
 )
 
+
 # --------------------------------------------------
 # AI ANALYSIS
 # --------------------------------------------------
@@ -166,6 +165,7 @@ analyze_button = st.button(
 if analyze_button:
 
     if not business_description.strip():
+
         st.warning("Please enter your business description first.")
 
     else:
@@ -173,6 +173,7 @@ if analyze_button:
         api_key = configure_api_key()
 
         if not api_key:
+
             st.error(
                 "Groq API key is missing. Please configure "
                 "GROQ_API_KEY in your Streamlit Secrets."
@@ -202,11 +203,11 @@ if analyze_button:
 
                 report = getattr(result, "raw", str(result))
 
-                st.markdown(
-                    f'<div class="report-box">{report}</div>',
-                    unsafe_allow_html=True
-                )
+                # Safely display the AI-generated report
+                with st.container(border=True):
+                    st.markdown(report)
 
+                # Download report
                 st.download_button(
                     label="📥 Download Consulting Report",
                     data=str(report),
@@ -221,6 +222,7 @@ if analyze_button:
                 )
 
                 st.exception(e)
+
 
 # --------------------------------------------------
 # FOOTER
