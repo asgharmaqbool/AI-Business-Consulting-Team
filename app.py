@@ -188,7 +188,6 @@ if analyze_button:
                     "This may take several minutes."
                 ):
 
-                    # Import after configuring the API key
                     from crew import create_consulting_crew
 
                     consulting_crew = create_consulting_crew(
@@ -203,7 +202,7 @@ if analyze_button:
 
                 report = getattr(result, "raw", str(result))
 
-                # Safely display the AI-generated report
+                # Safely display the generated report
                 with st.container(border=True):
                     st.markdown(report)
 
@@ -217,11 +216,34 @@ if analyze_button:
 
             except Exception as e:
 
-                st.error(
-                    "Something went wrong while generating your report."
-                )
+                error_message = str(e).lower()
 
-                st.exception(e)
+                if (
+                    "rate_limit" in error_message
+                    or "rate limit" in error_message
+                    or "tokens per minute" in error_message
+                    or "tpm" in error_message
+                ):
+
+                    st.warning(
+                        "⏳ Our AI consultants are receiving too many "
+                        "requests right now, or the request is too large. "
+                        "Please wait a little and try again."
+                    )
+
+                elif "timeout" in error_message:
+
+                    st.warning(
+                        "⏳ The analysis took too long. "
+                        "Please try again with a shorter business description."
+                    )
+
+                else:
+
+                    st.error(
+                        "We couldn't complete your business analysis. "
+                        "Please try again in a few minutes."
+                    )
 
 
 # --------------------------------------------------
