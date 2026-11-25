@@ -3,7 +3,7 @@ import streamlit as st
 from groq import Groq
 
 # =========================================================
-# PAGE CONFIGURATION
+# PAGE CONFIG
 # =========================================================
 
 st.set_page_config(
@@ -14,76 +14,339 @@ st.set_page_config(
 )
 
 # =========================================================
-# CUSTOM DESIGN
+# PREMIUM RESPONSIVE CSS
 # =========================================================
 
 st.markdown("""
 <style>
 
+/* ---------- GLOBAL ---------- */
+
 .stApp {
-    background-color: #0B1220;
+    background: #08111F;
     color: #F1F5F9;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, sans-serif;
 }
+
+.block-container {
+    max-width: 1450px;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+/* ---------- HEADINGS ---------- */
+
+h1, h2, h3, h4 {
+    color: #F8FAFC !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.4px;
+}
+
+h1 {
+    font-size: 2.4rem !important;
+}
+
+h2 {
+    font-size: 1.65rem !important;
+}
+
+h3 {
+    font-size: 1.2rem !important;
+}
+
+p, li {
+    color: #C4D0E0 !important;
+}
+
+/* ---------- SIDEBAR ---------- */
 
 [data-testid="stSidebar"] {
-    background-color: #101B2D;
-    border-right: 1px solid #263750;
+    background: linear-gradient(180deg, #101D30, #0A1424);
+    border-right: 1px solid #24354D;
 }
 
-h1, h2, h3 {
-    color: #F8FAFC !important;
+[data-testid="stSidebar"] > div {
+    padding-top: 1.5rem;
 }
 
-p, label, span {
-    color: inherit;
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label {
+    color: #EAF2FC !important;
 }
 
-div[data-testid="stMetric"] {
-    background: #16243A;
-    padding: 18px;
-    border: 1px solid #293C57;
-    border-radius: 14px;
+[data-testid="stSidebar"] small {
+    color: #A8B9D0 !important;
 }
 
-div.stButton > button {
-    background: linear-gradient(90deg, #2563EB, #3B82F6);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 0.65rem 1rem;
-    font-weight: 600;
+/* ---------- SIDEBAR NAVIGATION ---------- */
+
+[data-testid="stSidebar"] [role="radiogroup"] {
+    gap: 8px;
 }
 
-div.stButton > button:hover {
-    border: 1px solid #60A5FA;
-    color: white;
+[data-testid="stSidebar"] [role="radiogroup"] label {
+    background: #14243A;
+    border: 1px solid #243A57;
+    border-radius: 12px;
+    padding: 10px 12px;
+    transition: all 0.2s ease;
 }
 
-div[data-testid="stFormSubmitButton"] button {
-    background: linear-gradient(90deg, #2563EB, #3B82F6);
-    color: white;
-    border-radius: 10px;
-    font-weight: bold;
+[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background: #1B3352;
+    border-color: #4B83C7;
 }
+
+/* ---------- HERO ---------- */
+
+.hero-box {
+    background: linear-gradient(
+        120deg,
+        #142943 0%,
+        #173B67 55%,
+        #102A49 100%
+    );
+    border: 1px solid #315A83;
+    border-radius: 24px;
+    padding: 35px 38px;
+    margin-bottom: 26px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+}
+
+.hero-box h1 {
+    font-size: 2.5rem !important;
+    margin-bottom: 12px;
+}
+
+.hero-box p {
+    color: #C9DAED !important;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* ---------- CARDS ---------- */
 
 .tool-card {
-    background: #16243A;
-    border: 1px solid #293C57;
-    padding: 20px;
+    background: linear-gradient(145deg, #14243A, #101C2E);
+    border: 1px solid #283D59;
+    border-radius: 18px;
+    padding: 22px;
+    min-height: 170px;
+    margin-bottom: 12px;
+    transition: transform 0.2s, border 0.2s;
+}
+
+.tool-card:hover {
+    border-color: #5086C5;
+    transform: translateY(-3px);
+}
+
+.tool-card h3 {
+    margin-top: 0;
+}
+
+.tool-card p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #B8C9DD !important;
+}
+
+/* ---------- FORMS ---------- */
+
+label,
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] span {
+    color: #E6EEF9 !important;
+    font-weight: 600 !important;
+}
+
+/* Text fields, text areas and number inputs */
+
+input,
+textarea,
+[data-baseweb="input"] input,
+[data-baseweb="textarea"] textarea {
+    background-color: #F8FAFC !important;
+    color: #111827 !important;
+    caret-color: #111827 !important;
+    -webkit-text-fill-color: #111827 !important;
+    border-radius: 10px !important;
+}
+
+/* Placeholder text */
+
+input::placeholder,
+textarea::placeholder {
+    color: #64748B !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #64748B !important;
+}
+
+/* Text area */
+
+textarea {
+    min-height: 120px;
+    border: 1px solid #D1D5DB !important;
+}
+
+/* Select boxes */
+
+[data-baseweb="select"] > div {
+    background-color: #F8FAFC !important;
+    border-radius: 10px !important;
+}
+
+[data-baseweb="select"] span {
+    color: #111827 !important;
+}
+
+/* Dropdown menu */
+
+[data-baseweb="popover"],
+[data-baseweb="menu"] {
+    background-color: #FFFFFF !important;
+}
+
+[data-baseweb="popover"] *,
+[data-baseweb="menu"] * {
+    color: #111827 !important;
+}
+
+/* ---------- BUTTONS ---------- */
+
+.stButton > button,
+.stFormSubmitButton > button,
+.stDownloadButton > button {
+    background: linear-gradient(135deg, #2878E5, #3B92FF) !important;
+    color: #FFFFFF !important;
+    border: 1px solid #4C96F8 !important;
+    border-radius: 12px !important;
+    min-height: 48px;
+    padding: 10px 18px;
+    font-weight: 700 !important;
+    transition: all 0.2s ease;
+}
+
+.stButton > button:hover,
+.stFormSubmitButton > button:hover,
+.stDownloadButton > button:hover {
+    background: linear-gradient(135deg, #3B92FF, #60A5FA) !important;
+    border-color: #8BC0FF !important;
+    transform: translateY(-1px);
+}
+
+/* ---------- METRICS ---------- */
+
+[data-testid="stMetric"] {
+    background: linear-gradient(145deg, #172940, #122136);
+    border: 1px solid #2A405D;
     border-radius: 16px;
-    min-height: 150px;
+    padding: 18px;
 }
 
-.hero {
-    background: linear-gradient(120deg, #142641, #1E3A65);
-    border: 1px solid #31557D;
-    padding: 30px;
-    border-radius: 20px;
+[data-testid="stMetricLabel"] {
+    color: #AFC2D9 !important;
 }
 
-.small-note {
-    color: #9CAFC8;
-    font-size: 13px;
+[data-testid="stMetricValue"] {
+    color: #FFFFFF !important;
+}
+
+/* ---------- ALERTS ---------- */
+
+[data-testid="stAlert"] {
+    border-radius: 12px;
+}
+
+/* ---------- DIVIDERS ---------- */
+
+hr {
+    border-color: #263B56 !important;
+}
+
+/* ---------- MOBILE RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+
+    .block-container {
+        padding-top: 1.2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 2rem;
+    }
+
+    h1 {
+        font-size: 1.75rem !important;
+    }
+
+    h2 {
+        font-size: 1.4rem !important;
+    }
+
+    h3 {
+        font-size: 1.08rem !important;
+    }
+
+    .hero-box {
+        padding: 22px 18px;
+        border-radius: 18px;
+    }
+
+    .hero-box h1 {
+        font-size: 1.8rem !important;
+    }
+
+    .hero-box p {
+        font-size: 0.95rem;
+    }
+
+    .tool-card {
+        padding: 17px;
+        min-height: auto;
+        border-radius: 14px;
+    }
+
+    input,
+    textarea {
+        font-size: 16px !important;
+    }
+
+    .stButton > button,
+    .stFormSubmitButton > button,
+    .stDownloadButton > button {
+        width: 100%;
+        min-height: 48px;
+    }
+
+}
+
+/* ---------- SMALL MOBILE ---------- */
+
+@media (max-width: 480px) {
+
+    .block-container {
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+    }
+
+    .hero-box {
+        padding: 18px 15px;
+    }
+
+    .hero-box h1 {
+        font-size: 1.55rem !important;
+    }
+
+    [data-testid="stSidebar"] {
+        min-width: 260px;
+    }
+
 }
 
 </style>
@@ -91,7 +354,7 @@ div[data-testid="stFormSubmitButton"] button {
 
 
 # =========================================================
-# GROQ CONNECTION
+# AI CONNECTION
 # =========================================================
 
 def get_groq_client():
@@ -107,18 +370,11 @@ def get_groq_client():
         api_key = os.getenv("GROQ_API_KEY")
 
     if not api_key:
-        st.error(
-            "GROQ_API_KEY is missing. "
-            "Please add your API key in Streamlit Secrets."
-        )
+        st.error("GROQ_API_KEY is missing from Streamlit Secrets.")
         return None
 
     return Groq(api_key=api_key)
 
-
-# =========================================================
-# AI RESPONSE FUNCTION
-# =========================================================
 
 def ask_ai(prompt, max_tokens=1200):
 
@@ -135,21 +391,18 @@ def ask_ai(prompt, max_tokens=1200):
                 {
                     "role": "system",
                     "content": """
-You are an experienced business decision advisor.
+You are a professional business decision advisor.
 
-Your job is to provide practical, realistic and useful
-business advice.
+Give practical, realistic and useful business advice.
 
 Rules:
-- Answer exactly what the user needs.
-- Use simple and easy language.
+- Answer the user's actual question.
+- Use simple language.
 - Avoid unnecessary explanations.
 - Do not repeat information.
-- Never invent market statistics.
+- Do not invent statistics.
 - Clearly label estimates and assumptions.
-- Keep the response organized.
-- Do not act like a generic chatbot.
-- Focus on decisions and actions.
+- Give actionable recommendations.
 """
                 },
                 {
@@ -168,38 +421,36 @@ Rules:
         error = str(e).lower()
 
         if "rate_limit" in error or "rate limit" in error:
-
-            st.warning(
-                "The AI is temporarily busy. "
-                "Please wait a little and try again."
-            )
-
+            st.warning("AI is temporarily busy. Please wait and try again.")
         else:
-
-            st.error(
-                "We could not generate your result. "
-                "Please try again."
-            )
+            st.error("We could not generate your result. Please try again.")
 
         return None
 
 
 # =========================================================
-# SIDEBAR NAVIGATION
+# SIDEBAR
 # =========================================================
 
 with st.sidebar:
 
-    st.markdown("# 📈")
-    st.markdown("## AI Business")
-    st.markdown("### Decision Advisor")
-
-    st.caption("From business idea to smarter decisions.")
+    st.markdown("""
+    <div style="padding:10px 0 20px 0;">
+        <div style="font-size:42px;">📈</div>
+        <h2 style="margin-bottom:0;">AI Business</h2>
+        <h3 style="color:#78AFFF !important;margin-top:5px;">
+            Decision Advisor
+        </h3>
+        <p style="color:#A8B9D0 !important;">
+            From business idea to smarter decisions.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.divider()
 
     page = st.radio(
-        "Navigation",
+        "Navigate",
         [
             "🏠 Home",
             "💡 Idea Validator",
@@ -208,117 +459,118 @@ with st.sidebar:
             "📣 Marketing Builder",
             "📅 30-Day Launch Planner",
             "📄 Business Report"
-        ]
+        ],
+        label_visibility="visible"
     )
 
     st.divider()
 
-    st.markdown("### 🎯 Our Mission")
-    st.caption(
-        "Helping entrepreneurs make smarter decisions "
-        "before investing their money."
-    )
+    st.markdown("""
+    <div style="
+        background:linear-gradient(145deg,#172B46,#102035);
+        border:1px solid #304967;
+        padding:16px;
+        border-radius:16px;
+    ">
+        <h3>🚀 Plan Smart</h3>
+        <p>Grow Faster</p>
+        <p style="font-size:13px;color:#B8C9DD;">
+        Make smarter business decisions before investing.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.divider()
-
-    st.caption("Version 2.0 | Business Decision Advisor")
+    st.caption("AI Business Decision Advisor · V2")
 
 
 # =========================================================
-# HOME DASHBOARD
+# HOME
 # =========================================================
 
 if page == "🏠 Home":
 
     st.markdown("""
-    <div class="hero">
+    <div class="hero-box">
         <h1>Make Smarter Business Decisions</h1>
-        <h3>Before you invest your money.</h3>
+        <h3>Plan your business before you invest.</h3>
         <p>
-        Evaluate your business ideas, calculate your investment,
-        understand your risks and create your action plan.
+        Validate your ideas, understand your investment,
+        explore opportunities and create your business roadmap.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
+    st.subheader("Explore Business Tools")
 
-    st.subheader("🚀 Our Business Tools")
+    c1, c2, c3 = st.columns(3)
 
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
+    with c1:
         st.markdown("""
         <div class="tool-card">
-        <h3>💡 Idea Validator</h3>
-        <p>Find out if your business idea is worth starting.</p>
+            <h3>💡 Idea Validator</h3>
+            <p>Is your business idea worth starting?</p>
         </div>
         """, unsafe_allow_html=True)
 
-    with col2:
+    with c2:
         st.markdown("""
         <div class="tool-card">
-        <h3>💰 Investment Calculator</h3>
-        <p>Calculate your costs, investment and break-even.</p>
+            <h3>💰 Investment Calculator</h3>
+            <p>Calculate startup costs and potential profit.</p>
         </div>
         """, unsafe_allow_html=True)
 
-    with col3:
+    with c3:
         st.markdown("""
         <div class="tool-card">
-        <h3>🔎 Market Opportunity</h3>
-        <p>Understand customers, competition and opportunities.</p>
+            <h3>🔎 Market Opportunity</h3>
+            <p>Find customers, market gaps and opportunities.</p>
         </div>
         """, unsafe_allow_html=True)
 
-    col4, col5, col6 = st.columns(3)
+    c4, c5, c6 = st.columns(3)
 
-    with col4:
+    with c4:
         st.markdown("""
         <div class="tool-card">
-        <h3>📣 Marketing Builder</h3>
-        <p>Discover practical ways to attract customers.</p>
+            <h3>📣 Marketing Builder</h3>
+            <p>Build a practical marketing strategy.</p>
         </div>
         """, unsafe_allow_html=True)
 
-    with col5:
+    with c5:
         st.markdown("""
         <div class="tool-card">
-        <h3>📅 30-Day Launch Planner</h3>
-        <p>Follow a step-by-step business launch plan.</p>
+            <h3>📅 30-Day Launch Planner</h3>
+            <p>Get a step-by-step startup roadmap.</p>
         </div>
         """, unsafe_allow_html=True)
 
-    with col6:
+    with c6:
         st.markdown("""
         <div class="tool-card">
-        <h3>📄 Business Report</h3>
-        <p>Get a complete professional business evaluation.</p>
+            <h3>📄 Business Report</h3>
+            <p>Get a complete business evaluation.</p>
         </div>
         """, unsafe_allow_html=True)
 
-    st.write("")
+    st.markdown("---")
 
-    st.info(
-        "👈 Choose a business tool from the sidebar "
-        "to get started."
-    )
+    st.subheader("How it works")
 
-    st.subheader("How It Works")
+    a, b, c = st.columns(3)
 
-    step1, step2, step3 = st.columns(3)
+    with a:
+        st.markdown("### ① Tell us your idea")
+        st.caption("Describe the business you want to start.")
 
-    with step1:
-        st.markdown("### ①")
-        st.write("Tell us about your idea")
+    with b:
+        st.markdown("### ② Enter your budget")
+        st.caption("Set your investment and business goals.")
 
-    with step2:
-        st.markdown("### ②")
-        st.write("Enter your budget and goals")
-
-    with step3:
-        st.markdown("### ③")
-        st.write("Get your business decision and action plan")
+    with c:
+        st.markdown("### ③ Get your plan")
+        st.caption("Receive recommendations and next steps.")
 
 
 # =========================================================
@@ -327,18 +579,19 @@ if page == "🏠 Home":
 
 elif page == "💡 Idea Validator":
 
-    st.title("💡 Business Idea Validator")
+    st.markdown("""
+    <div class="hero-box">
+        <h1>💡 Business Idea Validator</h1>
+        <p>Evaluate your idea before investing your money.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.write(
-        "Find out whether your business idea is worth pursuing."
-    )
-
-    with st.form("idea_validator_form"):
+    with st.form("idea_form"):
 
         idea = st.text_area(
             "Describe your business idea",
-            placeholder="Example: I want to start a burger business on Foodpanda...",
-            height=120
+            placeholder="Example: I want to start a biryani delivery business...",
+            height=130
         )
 
         location = st.text_input(
@@ -354,60 +607,45 @@ elif page == "💡 Idea Validator":
         )
 
         experience = st.selectbox(
-            "Your business experience",
+            "Business experience",
             ["Beginner", "Some experience", "Experienced"]
         )
 
-        submitted = st.form_submit_button(
-            "Evaluate My Idea",
-            use_container_width=True
-        )
+        submit = st.form_submit_button("🚀 Evaluate My Idea")
 
-    if submitted:
+    if submit:
 
         if not idea.strip():
-
             st.warning("Please describe your business idea.")
 
         else:
 
             prompt = f"""
-Evaluate the following business idea.
+Evaluate this business idea.
 
-BUSINESS IDEA:
-{idea}
+Idea: {idea}
+Location: {location}
+Budget: PKR {budget:,}
+Experience: {experience}
 
-LOCATION:
-{location if location else "Not specified"}
+Provide:
+1. Verdict: Start / Test First / Avoid
+2. Potential: Low / Medium / High
+3. Main opportunity
+4. Three major risks
+5. Recommended approach
+6. Three next actions
 
-AVAILABLE INVESTMENT:
-PKR {budget:,}
-
-BUSINESS EXPERIENCE:
-{experience}
-
-Provide your assessment in this exact structure:
-
-1. VERDICT: Start / Test First / Avoid for Now
-2. POTENTIAL: Low / Medium / High
-3. MAIN OPPORTUNITY: One or two sentences
-4. MAIN RISKS: Three important risks
-5. RECOMMENDED APPROACH: Practical advice
-6. NEXT 3 ACTIONS: Three actions the user should take
-
-Be realistic.
+Be realistic, concise, and practical.
 Do not invent market statistics.
-Consider the user's available investment.
-Use simple language.
 """
 
             with st.spinner("Evaluating your business idea..."):
 
-                result = ask_ai(prompt, max_tokens=1000)
+                result = ask_ai(prompt, 1000)
 
             if result:
-
-                st.divider()
+                st.markdown("---")
                 st.subheader("Your Business Evaluation")
                 st.markdown(result)
 
@@ -418,48 +656,48 @@ Use simple language.
 
 elif page == "💰 Investment Calculator":
 
-    st.title("💰 Business Investment Calculator")
+    st.markdown("""
+    <div class="hero-box">
+        <h1>💰 Investment Calculator</h1>
+        <p>Understand your startup capital, expenses and break-even.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.write(
-        "Calculate your estimated startup investment, monthly costs "
-        "and possible profitability."
-    )
+    c1, c2 = st.columns(2)
 
-    col1, col2 = st.columns(2)
+    with c1:
 
-    with col1:
-
-        startup_cost = st.number_input(
+        equipment = st.number_input(
             "Equipment & Setup (PKR)",
             min_value=0,
             value=100000,
             step=10000
         )
 
-        stock_cost = st.number_input(
-            "Initial Stock / Inventory (PKR)",
+        stock = st.number_input(
+            "Initial Stock (PKR)",
             min_value=0,
             value=50000,
             step=10000
         )
 
-        other_startup = st.number_input(
+        startup_other = st.number_input(
             "Other Startup Costs (PKR)",
             min_value=0,
             value=25000,
             step=5000
         )
 
-    with col2:
+    with c2:
 
-        monthly_rent = st.number_input(
+        rent = st.number_input(
             "Monthly Rent (PKR)",
             min_value=0,
             value=30000,
             step=5000
         )
 
-        monthly_salary = st.number_input(
+        salaries = st.number_input(
             "Monthly Salaries (PKR)",
             min_value=0,
             value=40000,
@@ -473,154 +711,84 @@ elif page == "💰 Investment Calculator":
             step=5000
         )
 
-    st.divider()
+    st.markdown("### Sales & Profit Assumptions")
 
-    col1, col2 = st.columns(2)
+    c1, c2 = st.columns(2)
 
-    with col1:
+    with c1:
 
-        monthly_sales = st.number_input(
+        sales = st.number_input(
             "Expected Monthly Sales (PKR)",
             min_value=0,
             value=200000,
             step=25000
         )
 
-        cost_percentage = st.slider(
+        product_cost_percent = st.slider(
             "Product / Food Cost (%)",
-            min_value=0,
-            max_value=100,
-            value=40
+            0, 100, 40
         )
 
-    with col2:
+    with c2:
 
-        available_budget = st.number_input(
-            "Your Available Budget (PKR)",
+        budget_available = st.number_input(
+            "Available Budget (PKR)",
             min_value=0,
             value=300000,
             step=50000
         )
 
         reserve_months = st.number_input(
-            "Working Capital Reserve (Months)",
+            "Reserve Months",
             min_value=0,
             max_value=24,
             value=3
         )
 
-    # Real calculations
+    startup_total = equipment + stock + startup_other
+    fixed_monthly = rent + salaries + monthly_other
+    variable_cost = sales * product_cost_percent / 100
+    estimated_profit = sales - variable_cost - fixed_monthly
 
-    total_startup = (
-        startup_cost
-        + stock_cost
-        + other_startup
-    )
+    margin = 1 - product_cost_percent / 100
 
-    monthly_fixed = (
-        monthly_rent
-        + monthly_salary
-        + monthly_other
-    )
+    break_even = fixed_monthly / margin if margin > 0 else 0
 
-    monthly_variable_cost = (
-        monthly_sales * cost_percentage / 100
-    )
+    reserve = fixed_monthly * reserve_months
+    recommended_capital = startup_total + reserve
 
-    monthly_profit = (
-        monthly_sales
-        - monthly_variable_cost
-        - monthly_fixed
-    )
+    if st.button("🧮 Calculate My Business"):
 
-    contribution_margin = (
-        1 - cost_percentage / 100
-    )
+        st.markdown("---")
+        st.subheader("Your Financial Results")
 
-    if contribution_margin > 0:
+        c1, c2, c3 = st.columns(3)
 
-        break_even_sales = (
-            monthly_fixed / contribution_margin
-        )
+        c1.metric("Startup Cost", f"Rs. {startup_total:,.0f}")
+        c2.metric("Monthly Expenses", f"Rs. {fixed_monthly:,.0f}")
+        c3.metric("Estimated Profit", f"Rs. {estimated_profit:,.0f}")
 
-    else:
+        c1, c2 = st.columns(2)
 
-        break_even_sales = 0
+        c1.metric("Break-even Sales", f"Rs. {break_even:,.0f}")
+        c2.metric("Recommended Capital", f"Rs. {recommended_capital:,.0f}")
 
-    reserve_needed = monthly_fixed * reserve_months
-
-    total_needed = total_startup + reserve_needed
-
-    st.divider()
-
-    if st.button("Calculate My Business", use_container_width=True):
-
-        st.subheader("📊 Your Financial Results")
-
-        col1, col2, col3 = st.columns(3)
-
-        col1.metric(
-            "Startup Cost",
-            f"Rs. {total_startup:,.0f}"
-        )
-
-        col2.metric(
-            "Monthly Expenses",
-            f"Rs. {monthly_fixed:,.0f}"
-        )
-
-        col3.metric(
-            "Estimated Monthly Profit",
-            f"Rs. {monthly_profit:,.0f}"
-        )
-
-        col1, col2 = st.columns(2)
-
-        col1.metric(
-            "Break-even Sales",
-            f"Rs. {break_even_sales:,.0f}/month"
-        )
-
-        col2.metric(
-            "Total Recommended Capital",
-            f"Rs. {total_needed:,.0f}"
-        )
-
-        st.divider()
-
-        if total_needed <= available_budget:
-
-            st.success(
-                f"Your available budget covers the estimated startup "
-                f"cost and {reserve_months} months of reserves."
-            )
-
+        if recommended_capital <= budget_available:
+            st.success("Your budget covers the estimated startup and reserve.")
         else:
-
-            shortage = total_needed - available_budget
-
             st.warning(
-                f"Estimated budget shortfall: Rs. {shortage:,.0f}"
+                f"Estimated budget shortage: "
+                f"Rs. {recommended_capital - budget_available:,.0f}"
             )
 
-        if monthly_profit > 0:
-
-            st.success(
-                "Your business shows a potential operating profit "
-                "based on the numbers entered."
-            )
-
+        if estimated_profit > 0:
+            st.success("Your business shows potential operating profit based on these inputs.")
         else:
-
-            st.error(
-                "Based on your inputs, the business is currently "
-                "estimated to operate at a loss."
-            )
+            st.error("Your business currently shows an estimated operating loss.")
 
         st.caption(
-            "These calculations are estimates based on your inputs. "
-            "They do not include taxes, financing costs, unexpected "
-            "expenses, or other costs unless entered above."
+            "Results are estimates based on your inputs. Taxes, financing, "
+            "unexpected costs and other expenses are not included unless entered."
         )
 
 
@@ -630,80 +798,56 @@ elif page == "💰 Investment Calculator":
 
 elif page == "🔎 Market Opportunity":
 
-    st.title("🔎 Market Opportunity Analyzer")
-
-    st.write(
-        "Explore your target customers, competition and potential opportunities."
-    )
+    st.markdown("""
+    <div class="hero-box">
+        <h1>🔎 Market Opportunity</h1>
+        <p>Discover customers, competition and potential opportunities.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     with st.form("market_form"):
 
-        business_type = st.text_input(
-            "Business idea",
-            placeholder="Example: Affordable burger delivery business"
-        )
+        business = st.text_input("Business idea")
 
-        market_location = st.text_input(
-            "Target city or market",
-            placeholder="Example: Lahore, Pakistan"
-        )
+        location = st.text_input("City / Market")
 
-        target_customer = st.text_input(
-            "Target customer (optional)",
-            placeholder="Example: Students and office workers"
-        )
+        customers = st.text_input("Target customers (optional)")
 
-        market_submit = st.form_submit_button(
-            "Analyze Market Opportunity",
-            use_container_width=True
-        )
+        submit = st.form_submit_button("🔎 Analyze Market")
 
-    if market_submit:
+    if submit:
 
-        if not business_type.strip():
-
+        if not business.strip():
             st.warning("Please enter your business idea.")
 
         else:
 
             prompt = f"""
-Analyze the business market opportunity.
+Analyze this business market.
 
-BUSINESS:
-{business_type}
+Business: {business}
+Location: {location}
+Customers: {customers or "Identify target customers"}
 
-LOCATION:
-{market_location}
+Include:
+- Target customers
+- Customer needs
+- Competition challenges
+- Competitive advantages
+- Three market opportunities
+- Recommended positioning
 
-TARGET CUSTOMER:
-{target_customer if target_customer else "Identify suitable customers"}
-
-Provide:
-
-1. Target customers
-2. Customer problems and needs
-3. Potential competitive advantages
-4. Main competition challenges
-5. Three market opportunities
-6. Recommended positioning
-
-Do not invent real market statistics or claim live market research.
-Use realistic assumptions and simple language.
+Do not invent statistics or claim live market research.
 """
 
-            with st.spinner("Analyzing the opportunity..."):
+            with st.spinner("Analyzing market opportunity..."):
 
-                result = ask_ai(prompt, max_tokens=1200)
+                result = ask_ai(prompt, 1200)
 
             if result:
-
                 st.subheader("Market Opportunity Report")
                 st.markdown(result)
-
-                st.info(
-                    "This report is AI-generated and does not use "
-                    "live market data or verified competitor research."
-                )
+                st.info("This analysis does not include verified live market data.")
 
 
 # =========================================================
@@ -712,43 +856,33 @@ Use realistic assumptions and simple language.
 
 elif page == "📣 Marketing Builder":
 
-    st.title("📣 Marketing Strategy Builder")
-
-    st.write(
-        "Create a practical marketing strategy for your business."
-    )
+    st.markdown("""
+    <div class="hero-box">
+        <h1>📣 Marketing Builder</h1>
+        <p>Find affordable ways to attract and retain customers.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     with st.form("marketing_form"):
 
-        marketing_business = st.text_input(
-            "Business name or idea"
-        )
+        business = st.text_input("Business idea or name")
 
-        marketing_location = st.text_input(
-            "Business location"
-        )
+        location = st.text_input("Business location")
 
-        marketing_budget = st.number_input(
+        budget = st.number_input(
             "Monthly Marketing Budget (PKR)",
             min_value=0,
             value=20000,
             step=5000
         )
 
-        marketing_customer = st.text_input(
-            "Target customers",
-            placeholder="Example: Families, students, young professionals"
-        )
+        customer = st.text_input("Target customers")
 
-        marketing_submit = st.form_submit_button(
-            "Build My Marketing Strategy",
-            use_container_width=True
-        )
+        submit = st.form_submit_button("📣 Build My Strategy")
 
-    if marketing_submit:
+    if submit:
 
-        if not marketing_business.strip():
-
+        if not business.strip():
             st.warning("Please enter your business idea.")
 
         else:
@@ -756,39 +890,29 @@ elif page == "📣 Marketing Builder":
             prompt = f"""
 Create a practical marketing strategy.
 
-BUSINESS:
-{marketing_business}
-
-LOCATION:
-{marketing_location}
-
-MONTHLY MARKETING BUDGET:
-PKR {marketing_budget:,}
-
-TARGET CUSTOMERS:
-{marketing_customer if marketing_customer else "Identify target customers"}
+Business: {business}
+Location: {location}
+Budget: PKR {budget:,}/month
+Customers: {customer}
 
 Include:
+- Brand positioning
+- Best marketing channels
+- Five content ideas
+- Three offers
+- Customer acquisition
+- Customer retention
+- 7-day action plan
 
-1. Brand positioning
-2. Best marketing channels
-3. Five content ideas
-4. Three promotional offers
-5. Customer acquisition ideas
-6. Customer retention ideas
-7. A 7-day marketing action plan
-
-Keep the strategy affordable and practical.
-Do not invent market statistics.
+Keep everything affordable and practical.
 """
 
             with st.spinner("Building your marketing strategy..."):
 
-                result = ask_ai(prompt, max_tokens=1500)
+                result = ask_ai(prompt, 1500)
 
             if result:
-
-                st.subheader("Your Marketing Plan")
+                st.subheader("Your Marketing Strategy")
                 st.markdown(result)
 
 
@@ -798,45 +922,36 @@ Do not invent market statistics.
 
 elif page == "📅 30-Day Launch Planner":
 
-    st.title("📅 30-Day Business Launch Planner")
-
-    st.write(
-        "Create a practical roadmap for launching your business "
-        "within 30 days."
-    )
+    st.markdown("""
+    <div class="hero-box">
+        <h1>📅 30-Day Launch Planner</h1>
+        <p>Turn your idea into a step-by-step launch plan.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     with st.form("launch_form"):
 
-        launch_business = st.text_input(
-            "Business idea",
-            placeholder="Example: Home-based bakery"
-        )
+        business = st.text_input("Business idea")
 
-        launch_location = st.text_input(
-            "Business location"
-        )
+        location = st.text_input("Location")
 
-        launch_budget = st.number_input(
-            "Available investment (PKR)",
+        budget = st.number_input(
+            "Available Budget (PKR)",
             min_value=0,
             value=200000,
             step=50000
         )
 
-        launch_experience = st.selectbox(
-            "Experience level",
+        experience = st.selectbox(
+            "Experience",
             ["Beginner", "Some experience", "Experienced"]
         )
 
-        launch_submit = st.form_submit_button(
-            "Create My 30-Day Plan",
-            use_container_width=True
-        )
+        submit = st.form_submit_button("📅 Create My Launch Plan")
 
-    if launch_submit:
+    if submit:
 
-        if not launch_business.strip():
-
+        if not business.strip():
             st.warning("Please enter your business idea.")
 
         else:
@@ -844,41 +959,27 @@ elif page == "📅 30-Day Launch Planner":
             prompt = f"""
 Create a realistic 30-day launch plan.
 
-BUSINESS:
-{launch_business}
+Business: {business}
+Location: {location}
+Budget: PKR {budget:,}
+Experience: {experience}
 
-LOCATION:
-{launch_location}
+Divide it into:
 
-BUDGET:
-PKR {launch_budget:,}
+Week 1: Research and validation
+Week 2: Preparation and setup
+Week 3: Product and marketing preparation
+Week 4: Launch and improvement
 
-EXPERIENCE:
-{launch_experience}
-
-Organize the plan into four weeks:
-
-WEEK 1: Research and validation
-WEEK 2: Preparation and setup
-WEEK 3: Product, operations and marketing preparation
-WEEK 4: Launch and improvement
-
-For each week:
-- Give clear tasks.
-- Focus on actions the user can actually complete.
-- Respect the user's budget.
-- Prioritize important tasks.
-- Avoid unnecessary expenses.
-
-End with 5 launch success checkpoints.
+Include clear weekly tasks, priorities, budget awareness,
+and five final launch checkpoints.
 """
 
-            with st.spinner("Creating your launch roadmap..."):
+            with st.spinner("Creating your launch plan..."):
 
-                result = ask_ai(prompt, max_tokens=1800)
+                result = ask_ai(prompt, 1800)
 
             if result:
-
                 st.subheader("Your 30-Day Roadmap")
                 st.markdown(result)
 
@@ -889,98 +990,81 @@ End with 5 launch success checkpoints.
 
 elif page == "📄 Business Report":
 
-    st.title("📄 Business Decision Report")
+    st.markdown("""
+    <div class="hero-box">
+        <h1>📄 Business Decision Report</h1>
+        <p>Get a complete evaluation from your five AI business consultants.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.write(
-        "Generate a structured report for a business idea "
-        "using our five AI business consultants."
-    )
+    with st.form("report_form"):
 
-    with st.form("business_report_form"):
-
-        report_business = st.text_area(
+        description = st.text_area(
             "Describe your business",
-            placeholder="Describe your business idea, customers, location, budget, goals and concerns.",
-            height=150
+            height=150,
+            placeholder="Business idea, location, customers, budget and goals..."
         )
 
-        report_location = st.text_input(
-            "Business location"
-        )
+        location = st.text_input("Business Location")
 
-        report_budget = st.number_input(
+        budget = st.number_input(
             "Available Investment (PKR)",
             min_value=0,
             value=300000,
             step=50000
         )
 
-        report_submit = st.form_submit_button(
-            "Generate Business Report",
-            use_container_width=True
-        )
+        submit = st.form_submit_button("📄 Generate Business Report")
 
-    if report_submit:
+    if submit:
 
-        if not report_business.strip():
-
+        if not description.strip():
             st.warning("Please describe your business.")
 
         else:
 
             complete_description = f"""
-BUSINESS DESCRIPTION:
-{report_business}
+Business:
+{description}
 
-LOCATION:
-{report_location}
+Location:
+{location}
 
-AVAILABLE INVESTMENT:
-PKR {report_budget:,}
+Available Investment:
+PKR {budget:,}
 
-Prepare a professional business decision report.
-Focus on realistic recommendations, risks, budget,
-market opportunity, marketing and growth.
+Prepare a professional business evaluation.
+Focus on feasibility, risks, finances, marketing and growth.
 """
 
             try:
 
-                with st.spinner(
-                    "Our five business consultants are working..."
-                ):
+                with st.spinner("Our five consultants are working..."):
 
                     from crew import create_consulting_crew
 
-                    crew = create_consulting_crew(
-                        complete_description
-                    )
+                    crew = create_consulting_crew(complete_description)
 
                     result = crew.kickoff()
 
-                st.subheader("Your Business Decision Report")
-
-                st.markdown(str(result))
-
                 report_text = str(result)
 
+                st.subheader("Your Business Decision Report")
+
+                st.markdown(report_text)
+
                 st.download_button(
-                    label="📥 Download Business Report",
-                    data=report_text,
+                    "📥 Download Report",
+                    report_text,
                     file_name="business_decision_report.txt",
-                    mime="text/plain",
-                    use_container_width=True
+                    mime="text/plain"
                 )
 
             except Exception:
 
                 st.error(
-                    "We could not generate the full business report. "
-                    "Please try again later or use one of our other tools."
-                )
-
-                st.info(
-                    "If the problem continues, check the Streamlit "
-                    "deployment logs."
+                    "We could not generate your report. "
+                    "Please try again or check your deployment logs."
                 )
 
 
@@ -988,8 +1072,10 @@ market opportunity, marketing and growth.
 # FOOTER
 # =========================================================
 
-st.divider()
+st.markdown("---")
 
-st.caption(
-    "AI Business Decision Advisor | Make smarter decisions before investing."
-)
+st.markdown("""
+<div style="text-align:center;color:#8195AE;padding:10px;">
+AI Business Decision Advisor · Make smarter decisions before investing.
+</div>
+""", unsafe_allow_html=True)
